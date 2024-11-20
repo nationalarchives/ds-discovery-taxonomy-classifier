@@ -1,0 +1,6 @@
+﻿<parameters>
+  <parameter name="IIS Web Application Name" defaultValue="services/DiscoveryClassifierService" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\msdn4gnanesh\\DiscoveryClassifier\\DiscoveryClassifier\.Services\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\msdn4gnanesh\\DiscoveryClassifier\\DiscoveryClassifier\.Services\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+</parameters>

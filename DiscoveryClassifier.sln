@@ -1,0 +1,108 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscoveryClassifier.UI", "DiscoveryClassifier.UI\DiscoveryClassifier.UI.csproj", "{B59E8770-4056-4DDA-B27B-6209E74F0E37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7164631-B046-44B6-95DE-E28CA789DD43} = {B7164631-B046-44B6-95DE-E28CA789DD43}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscoveryClassifier.Data", "DiscoveryClassifier.Data\DiscoveryClassifier.Data.csproj", "{CEBCE162-C74A-4BF6-8B7E-5A0D9A9A94C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscoveryClassifier.Tests", "DiscoveryClassifier.Tests\DiscoveryClassifier.Tests.csproj", "{1AC7EF58-E465-4BEF-9C83-0CF996625D0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscoveryClassifier.Services", "DiscoveryClassifier.Services\DiscoveryClassifier.Services.csproj", "{B7164631-B046-44B6-95DE-E28CA789DD43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7EA5B26C-5E91-4204-A461-5E6B97F8122D}"
+	ProjectSection(SolutionItems) = preProject
+		..\DC.eap = ..\DC.eap
+		notes.txt = notes.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EE32FAC3-07D8-40E5-B458-EE523C5352A6}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscoveryClassifier.ServiceClient", "DiscoveryClassifier.ServiceClient\DiscoveryClassifier.ServiceClient.csproj", "{ECCC4DE9-4A56-4755-BCDF-9A467F53B5C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscoveryClassifier.BusinessObjects", "DiscoveryClassifier.BusinessObjects\DiscoveryClassifier.BusinessObjects.csproj", "{2D48435D-9672-4BD9-964B-36FD31DA1690}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Live|Any CPU = Live|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B59E8770-4056-4DDA-B27B-6209E74F0E37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59E8770-4056-4DDA-B27B-6209E74F0E37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59E8770-4056-4DDA-B27B-6209E74F0E37}.Live|Any CPU.ActiveCfg = Live|Any CPU
+		{B59E8770-4056-4DDA-B27B-6209E74F0E37}.Live|Any CPU.Build.0 = Live|Any CPU
+		{B59E8770-4056-4DDA-B27B-6209E74F0E37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59E8770-4056-4DDA-B27B-6209E74F0E37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBCE162-C74A-4BF6-8B7E-5A0D9A9A94C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBCE162-C74A-4BF6-8B7E-5A0D9A9A94C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBCE162-C74A-4BF6-8B7E-5A0D9A9A94C1}.Live|Any CPU.ActiveCfg = Live|Any CPU
+		{CEBCE162-C74A-4BF6-8B7E-5A0D9A9A94C1}.Live|Any CPU.Build.0 = Live|Any CPU
+		{CEBCE162-C74A-4BF6-8B7E-5A0D9A9A94C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBCE162-C74A-4BF6-8B7E-5A0D9A9A94C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AC7EF58-E465-4BEF-9C83-0CF996625D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AC7EF58-E465-4BEF-9C83-0CF996625D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AC7EF58-E465-4BEF-9C83-0CF996625D0B}.Live|Any CPU.ActiveCfg = Live|Any CPU
+		{1AC7EF58-E465-4BEF-9C83-0CF996625D0B}.Live|Any CPU.Build.0 = Live|Any CPU
+		{1AC7EF58-E465-4BEF-9C83-0CF996625D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AC7EF58-E465-4BEF-9C83-0CF996625D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7164631-B046-44B6-95DE-E28CA789DD43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7164631-B046-44B6-95DE-E28CA789DD43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7164631-B046-44B6-95DE-E28CA789DD43}.Live|Any CPU.ActiveCfg = Live|Any CPU
+		{B7164631-B046-44B6-95DE-E28CA789DD43}.Live|Any CPU.Build.0 = Live|Any CPU
+		{B7164631-B046-44B6-95DE-E28CA789DD43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7164631-B046-44B6-95DE-E28CA789DD43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECCC4DE9-4A56-4755-BCDF-9A467F53B5C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECCC4DE9-4A56-4755-BCDF-9A467F53B5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECCC4DE9-4A56-4755-BCDF-9A467F53B5C9}.Live|Any CPU.ActiveCfg = Live|Any CPU
+		{ECCC4DE9-4A56-4755-BCDF-9A467F53B5C9}.Live|Any CPU.Build.0 = Live|Any CPU
+		{ECCC4DE9-4A56-4755-BCDF-9A467F53B5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECCC4DE9-4A56-4755-BCDF-9A467F53B5C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D48435D-9672-4BD9-964B-36FD31DA1690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D48435D-9672-4BD9-964B-36FD31DA1690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D48435D-9672-4BD9-964B-36FD31DA1690}.Live|Any CPU.ActiveCfg = Live|Any CPU
+		{2D48435D-9672-4BD9-964B-36FD31DA1690}.Live|Any CPU.Build.0 = Live|Any CPU
+		{2D48435D-9672-4BD9-964B-36FD31DA1690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D48435D-9672-4BD9-964B-36FD31DA1690}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {866A1A02-D0C8-4C9E-A482-F4CCE462697D}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tna.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = DiscoveryClassifier.Data\\DiscoveryClassifier.Data.csproj
+		SccProjectName1 = DiscoveryClassifier.Data
+		SccLocalPath1 = DiscoveryClassifier.Data
+		SccProjectUniqueName2 = DiscoveryClassifier.Tests\\DiscoveryClassifier.Tests.csproj
+		SccProjectName2 = DiscoveryClassifier.Tests
+		SccLocalPath2 = DiscoveryClassifier.Tests
+		SccProjectUniqueName3 = DiscoveryClassifier.UI\\DiscoveryClassifier.UI.csproj
+		SccProjectName3 = DiscoveryClassifier.UI
+		SccLocalPath3 = DiscoveryClassifier.UI
+		SccProjectUniqueName4 = DiscoveryClassifier.Services\\DiscoveryClassifier.Services.csproj
+		SccProjectName4 = DiscoveryClassifier.Services
+		SccLocalPath4 = DiscoveryClassifier.Services
+		SccProjectUniqueName5 = DiscoveryClassifier.ServiceClient\\DiscoveryClassifier.ServiceClient.csproj
+		SccProjectName5 = DiscoveryClassifier.ServiceClient
+		SccLocalPath5 = DiscoveryClassifier.ServiceClient
+		SccProjectUniqueName6 = DiscoveryClassifier.BusinessObjects\\DiscoveryClassifier.BusinessObjects.csproj
+		SccProjectName6 = DiscoveryClassifier.BusinessObjects
+		SccLocalPath6 = DiscoveryClassifier.BusinessObjects
+	EndGlobalSection
+EndGlobal

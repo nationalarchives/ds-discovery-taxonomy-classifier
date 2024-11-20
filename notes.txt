@@ -1,0 +1,19 @@
+Server side:
+
+	- Repository Pattern
+	- Service Layers & WCF
+
+Client Side use
+
+	- WPF
+	- MVVM Pattern
+
+Links:
+
+http://www.codeproject.com/Articles/254120/Prism-4-MEF-Application
+http://teusje.wordpress.com/2011/10/16/unicornmanager-prism-4-mef-wpf-ef-4-1-code-first-nuget-datavalidation/
+http://www.silverlightshow.net/items/Working-with-Prism-4-Part-1-Getting-Started.aspx
+http://apparchguide.codeplex.com/wikipage?title=Chapter%2017%20-%20Rich%20Client%20Applications
+http://blog.quantumbitdesigns.com/2008/07/22/wpf-application-design-and-architecture/
+http://visualstudiomagazine.com/articles/2011/05/01/pcuix_ui-architecture.aspx
+http://msdn.microsoft.com/en-us/library/gg406140.aspx

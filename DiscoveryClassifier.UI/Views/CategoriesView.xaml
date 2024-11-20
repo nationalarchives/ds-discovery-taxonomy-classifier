@@ -1,0 +1,159 @@
+﻿<UserControl x:Class="DiscoveryClassifier.UI.Views.CategoriesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             DataContext="{Binding CategoryView, Source={StaticResource Locator}}"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1200"
+             >
+    <Grid Background="Chartreuse">
+        <Grid.Resources>
+            <ControlTemplate x:Key="validationTemplate">
+                <DockPanel>
+                    <StackPanel VerticalAlignment="Top" Style="{DynamicResource ElasticStyle}">
+                        <AdornedElementPlaceholder x:Name="adorner"/>
+                        <TextBlock Foreground="Red" Text="{Binding ElementName=adorner , Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"></TextBlock>
+                    </StackPanel>
+                </DockPanel>
+            </ControlTemplate>
+            <Style TargetType="TextBox">
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},
+                            Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded" >
+                <i:InvokeCommandAction Command="{Binding LoadCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <TextBox Height="23" Margin="10,5,90,5" VerticalAlignment="Top" Text="{Binding Path=SearchText}"/>
+            <Button Height="23"  Margin="10,5" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Command="{Binding Path=SearchCommand}">Search</Button>
+            <DataGrid Margin="10,36,10,40" Grid.Column="0" ItemsSource="{Binding Path=Categories}" SelectedItem="{Binding Path=SelectedCategory}"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Width="60" Binding="{Binding CategoryId}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Title" Width="220" Binding="{Binding Title}" IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="15,10" Background="Chartreuse">
+                <Image Source="..\Resources\add.jpg"  Width="16" Height="16" ToolTip="Add New Category"/>
+                <Button ToolTip="Add New Category" Command="{Binding Path=AddCommand}" Margin="5,5">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <TextBlock TextDecorations="Underline" Foreground="Blue" Cursor="Hand">Add New Category</TextBlock>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="275" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="5,8,5,1">Category Id:</TextBlock>
+                <TextBox Grid.Column="0" Grid.Row="1" Margin="5,0" Height="23" Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                         Text="{Binding CategoryId, ValidatesOnDataErrors=True}" IsEnabled="{Binding IsNew}"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" Margin="50,8,5,1">Category Name:</TextBlock>
+                <StackPanel Margin="40,0" Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                    <TextBox Grid.Column="1" Grid.Row="1" Margin="10,0" Height="23" Width="340"  Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                             Text="{Binding CategoryName, ValidatesOnDataErrors=True}" IsEnabled="{Binding NameIsEnabled}" />
+                    <Button ToolTipService.ShowOnDisabled="True" Command="{Binding Path=NameEnableCommand}" IsEnabled="{Binding CanRun}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="..\Resources\edit.jpg"  Width="25" Height="20"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold">Category name edit information</TextBlock>
+                                    <TextBlock>You can change the category name by clicking on that button</TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                </StackPanel>
+                <TextBlock Grid.Column="2" Grid.Row="0" Margin="50,8,5,1">Category Score:</TextBlock>
+                <StackPanel Margin="40,0" Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
+                    <TextBox Margin="10,0" Width="130" Height="23" Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                         Text="{Binding Score, ValidatesOnDataErrors=True}" IsEnabled="{Binding ScoreIsEnabled}"/>
+                    <Button ToolTipService.ShowOnDisabled="True" Command="{Binding Path=ScoreEnableCommand}" IsEnabled="{Binding CanRun}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="..\Resources\edit.jpg"  Width="25" Height="20"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold">Category score edit information</TextBlock>
+                                    <TextBlock>You can set a threshold on your category by setting the minimum score that documents should have to be returned for this category.</TextBlock>
+                                    <TextBlock>You can use the score returned by actual documents in the results table on the last right column)</TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <TextBlock Grid.Row="1" Margin="5,20,5,0">Query:</TextBlock>
+            <TextBox Grid.Row="2" Margin="5,5" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" 
+                     Validation.ErrorTemplate="{StaticResource validationTemplate}" Text="{Binding Query, ValidatesOnDataErrors=True}"/>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <TextBlock Margin="5,8">From</TextBlock>
+                    <TextBox Margin="5,5" Height="23" Width="40" Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                         Text="{Binding Offset}"/>
+                    <TextBlock Margin="5,8">show the next</TextBlock>
+                    <TextBox Margin="5,5" Height="23" Width="40" Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                         Text="{Binding Limit}"/>
+                    <TextBlock Margin="5,8">results. </TextBlock>
+                    <TextBlock Margin="5,8" Foreground="Green" Text="{Binding ResultsMessage}"></TextBlock>
+                    <Button Height="23" Margin="10,5" Width="120" IsEnabled="{Binding CanRun}" Command="{Binding Path=RunCommand}">Run Query</Button>
+                    <Button Height="23" Margin="10,5" Width="120" IsEnabled="{Binding CanSave}" Command="{Binding Path=SaveCommand}">Save Category</Button>
+                    <Button Height="23" Margin="10,5" Width="120" Command="{Binding Path=RefreshCommand}">Undo changes</Button>
+            </StackPanel>
+            <DataGrid Grid.Row="4" Margin="10,10" AutoGenerateColumns="False" ItemsSource="{Binding Path=IAViewResults}" Visibility="{Binding ShowResult}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CatDocRef"  Binding="{Binding catDocRef}"/>
+                    <DataGridTextColumn Header="Title"  Binding="{Binding title}"/>
+                    <DataGridTextColumn Header="Description"  Binding="{Binding description}"/>
+                    <DataGridTextColumn Header="Score"  Binding="{Binding score}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Row="4" Margin="10,10" Orientation="Horizontal" VerticalAlignment="Top"  HorizontalAlignment="Left" Visibility="{Binding ShowError}">
+                <TextBlock Margin="5,5" Foreground="Red" Text="{Binding ErrorMessage}" TextWrapping="Wrap" Height="Auto" Width="850"></TextBlock>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,162 @@
+﻿<UserControl x:Class="DiscoveryClassifier.UI.Views.DocumentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             DataContext="{Binding DocumentView, Source={StaticResource Locator}}"
+             xmlns:util="clr-namespace:DiscoveryClassifier.UI.Utility"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="{Binding ShowQuery}" VerticalAlignment="Top" Background="Chartreuse">
+            <TextBlock Margin="5,5">Query:</TextBlock>
+            <TextBox Margin="5,5" Height="150" Width="730" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Text="{Binding Query}"/>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Margin="5,8">From</TextBlock>
+                    <TextBox Margin="5,5" Height="23" Width="40" Text="{Binding Offset}"/>
+                    <TextBlock Margin="5,8">show the next</TextBlock>
+                    <TextBox Margin="5,5" Height="23" Width="40" Text="{Binding Limit}"/>
+                    <TextBlock Margin="5,8">results.</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                    <Button Margin="5,5" Height="23" Width="100" Command="{Binding Path=RunCommand}" HorizontalAlignment="Left">Run Query</Button>
+                    <TextBlock Margin="5,5" Foreground="Green" Text="{Binding ResultsMessage}"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0" Margin="10,10" ItemsSource="{Binding Path=Documents}" SelectedItem="{Binding Path=SelectedDocument}" Visibility="{Binding ShowDocumentResult}"
+                      AutoGenerateColumns="False" Width="650" Background="Chartreuse">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="DocReference" Width="90" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                        <Hyperlink Command="{Binding Path=DataContext.NavigateCommand, 
+                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                                    CommandParameter="{Binding DocReference}">
+                                            <TextBlock Text="{Binding Path=DocReference}"></TextBlock>
+                                        </Hyperlink>
+                                    </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="CatDocRef" Width="100" IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <ItemContainerTemplate>
+                                <TextBlock>
+                                        <Hyperlink Command="{Binding Path=DataContext.LegacyNavigateCommand, 
+                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                                    CommandParameter="{Binding CatDocRef}">
+                                            <TextBlock Text="{Binding CatDocRef}"></TextBlock>
+                                        </Hyperlink>
+                                    </TextBlock>
+                            </ItemContainerTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Title" Width="430" Binding="{Binding Title}" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Grid.Column="0" Margin="10,10" Foreground="Red" Text="{Binding DocumentError}" TextWrapping="Wrap" Height="Auto" 
+                           Width="500" Visibility="{Binding ShowDocumentError}" HorizontalAlignment="Left"></TextBlock>
+            <StackPanel Grid.Column="1" Margin="10,10" Orientation="Vertical" VerticalAlignment="Top" Background="Chartreuse">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="300" Margin="0,0,0,10">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="Title: "/>
+                                <Run Text="{Binding Title}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="DocReference: "/>
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding Path=NavigateCommand}" CommandParameter="{Binding DocReference}">
+                                        <TextBlock Text="{Binding DocReference}"></TextBlock>
+                                    </Hyperlink>
+                                </TextBlock>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="CatDocRef: "/>
+                                <TextBlock>
+                                    <Hyperlink Command="{Binding Path=LegacyNavigateCommand}" CommandParameter="{Binding CatDocRef}">
+                                        <TextBlock Text="{Binding CatDocRef}"></TextBlock>
+                                    </Hyperlink>
+                                </TextBlock>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="CoveringDates: "/>
+                                <Run Text="{Binding CoveringDates}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="Description: "/>
+                                <Run Text="{Binding Description}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="Context Description: "/>
+                                <Run Text="{Binding ContextDescription}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="CorpBodys: "/>
+                                <Run Text="{Binding CorpBodys}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="Subjects: "/>
+                                <Run Text="{Binding Subjects}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="Place Name: "/>
+                                <Run Text="{Binding Place_Name}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <TextBlock Margin="0,0,0,5" TextWrapping="Wrap">
+                            <TextBlock.Inlines>
+                                <Run FontWeight="Bold" Text="Person FullName: "/>
+                                <Run Text="{Binding Person_FullName}"/>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Background="Chartreuse">
+                    <ListView Margin="0,0" ItemsSource="{Binding Path=ResultCategoris}" Visibility="{Binding ShowResult}"
+                        MaxHeight="465" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        IsSynchronizedWithCurrentItem="True" util:GridViewSort.AutoSort="True">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="375"  Header="Category Name" DisplayMemberBinding="{Binding name}" util:GridViewSort.PropertyName="name"/>
+                                <GridViewColumn Width="100" Header="Score" DisplayMemberBinding="{Binding score}"  util:GridViewSort.PropertyName="score"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <TextBlock Margin="0,0" Foreground="Red" Text="{Binding ErrorMessage}" TextWrapping="Wrap" Height="Auto" 
+                                Width="250" Visibility="{Binding ShowError}" HorizontalAlignment="Left"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
