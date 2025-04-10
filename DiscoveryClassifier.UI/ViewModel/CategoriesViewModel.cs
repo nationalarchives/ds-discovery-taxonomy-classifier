@@ -424,7 +424,15 @@ namespace DiscoveryClassifier.UI.ViewModel
         {
             try
             {
-                Categories = m_CategoryServiceClinet.GetCategories(SearchText).List;
+                var restClient = new RESTServiceClient();
+                if (String.IsNullOrEmpty(SearchText))
+                {
+                    Categories = restClient.GetCategories(String.Empty); 
+                }
+                else
+                {
+                    Categories = restClient.GetCategories(SearchText);
+                }
             }
             catch (Exception ex)
             {
