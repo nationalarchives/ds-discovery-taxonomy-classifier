@@ -13,12 +13,14 @@ using System.ComponentModel;
 using System.Windows;
 using NationalArchives.CommonUtilities;
 using System.Threading;
+using DiscoveryClassifier.ServiceClient;
 
 namespace DiscoveryClassifier.UI.ViewModel
 {
     public class CategoriesViewModel : ViewModelBase, IDataErrorInfo
     {
-        private ICategoryService m_CategoryServiceClinet;
+        private RESTServiceClientCategories m_CategoryServiceClient;
+        private RESTServiceClient m_DocumentServiceClient;
         private Category m_Category;
         private Category m_SelectedCategory;
         private List<Category> m_Categories;
@@ -53,9 +55,11 @@ namespace DiscoveryClassifier.UI.ViewModel
         private const string ResultsPropertyName = "ResultsMessage";
         private const string StandardErrorMessage = "An unexpected error occured, please contact your administrator.";
 
-        public CategoriesViewModel(ICategoryService categoryService)
+        public CategoriesViewModel(RESTServiceClientCategories categoryService, RESTServiceClient documentServiceClient)
         {
-            m_CategoryServiceClinet = categoryService;
+            m_CategoryServiceClient = categoryService;
+            m_DocumentServiceClient = documentServiceClient;
+
             m_Category = new Category();
 
             SearchText = "";
@@ -72,6 +76,7 @@ namespace DiscoveryClassifier.UI.ViewModel
             CreateRefreshCommand();
             CreateNameEnableCommand();
             CreateScoreEnableCommand();
+            m_DocumentServiceClient = documentServiceClient;
         }
 
         public string SearchText { get; set; }
@@ -424,14 +429,14 @@ namespace DiscoveryClassifier.UI.ViewModel
         {
             try
             {
-                var restClient = new RESTServiceClient();
+                
                 if (String.IsNullOrEmpty(SearchText))
                 {
-                    Categories = restClient.GetCategories(String.Empty); 
+                    Categories = m_CategoryServiceClient.GetCategories(String.Empty); 
                 }
                 else
                 {
-                    Categories = restClient.GetCategories(SearchText);
+                    Categories = m_CategoryServiceClient.GetCategories(SearchText);
                 }
             }
             catch (Exception ex)
@@ -476,7 +481,7 @@ namespace DiscoveryClassifier.UI.ViewModel
             ErrorMessage = "";
             try
             {
-                var editItem = m_CategoryServiceClinet.GetCategory(categoryId);
+                Category editItem = m_CategoryServiceClient.GetCategoryById(categoryId);
 
                 CategoryId = editItem.CategoryId;
                 CategoryName = editItem.Title;
@@ -514,6 +519,8 @@ namespace DiscoveryClassifier.UI.ViewModel
 
         public void AddExecute()
         {
+            MessageBox.Show(Resources.AddNewCategoryErrorMsg, "Categories");
+            return;
             CategoryCurrentStatus = CategoryStatus.Add;
             Clear();
         }
@@ -529,11 +536,12 @@ namespace DiscoveryClassifier.UI.ViewModel
         {
             try
             {
-                m_CategoryServiceClinet.SaveCategory(m_Category, IsNew);
+                m_CategoryServiceClient.SaveCategory(m_Category, IsNew);
+
                 SearchExecute();
                 CategoryCurrentStatus = CategoryStatus.Saved;
                 RaisePropertyChanged(CanSavePropertyName);
-                MessageBox.Show("Category saved successfully!", "Save Confirmation", MessageBoxButton.OK, 
+                MessageBox.Show(Resources.CategorySavedSuccessfully, "Save Confirmation", MessageBoxButton.OK, 
                                         MessageBoxImage.Information);
             }
             catch (Exception ex)
@@ -556,7 +564,7 @@ namespace DiscoveryClassifier.UI.ViewModel
             {
                 IAViewResults = null;
                 ErrorMessage = string.Empty;
-                var restServiceClient = new RESTServiceClient();
+
                 var searchRequest = new SearchRequest()
                 {
                     categoryQuery = Query,
@@ -564,15 +572,15 @@ namespace DiscoveryClassifier.UI.ViewModel
                     offset = Offset,
                     score = Score
                 };
-                if (restServiceClient.Search(searchRequest))
+                if (m_DocumentServiceClient.Search(searchRequest))
                 {
-                    int numberOfResults = restServiceClient.SearchResults.numberOfResults;
-                    IAViewResults = restServiceClient.SearchResults.results;
+                    int numberOfResults = m_DocumentServiceClient.SearchResults.numberOfResults;
+                    IAViewResults = m_DocumentServiceClient.SearchResults.results;
                     ResultsMessage = string.Format("{0:N0} documents returned.", numberOfResults);
                     //Limit = Limit > numberOfResults ? numberOfResults : Limit;
                 }
                 else
-                    ErrorMessage = GetError(restServiceClient.Error);
+                    ErrorMessage = GetError(m_DocumentServiceClient.Error);
 
                 RaisePropertyChanged(ShowResultPropertyName);
                 RaisePropertyChanged(ShowErrorPropertyName);
@@ -618,12 +626,12 @@ namespace DiscoveryClassifier.UI.ViewModel
                 try
                 {
                     ErrorMessage = string.Empty;
-                    var restServiceClient = new RESTServiceClient();
+
                     var publishRequest = new PublishRequest()
                     {
                         CIAID = CategoryId
                     };
-                    if (restServiceClient.Publish(publishRequest))
+                    if (m_DocumentServiceClient.Publish(publishRequest))
                     {
                         CategoryCurrentStatus = CategoryStatus.Saved;
                         MessageBox.Show("Category publish initiated successfully!", "Publish Initiated", MessageBoxButton.OK,
@@ -631,7 +639,7 @@ namespace DiscoveryClassifier.UI.ViewModel
                         LoadCategory(CategoryId);
                     }
                     else
-                        ErrorMessage = GetError(restServiceClient.Error);
+                        ErrorMessage = GetError(m_DocumentServiceClient.Error);
 
                     RaisePropertyChanged(ShowResultPropertyName);
                     RaisePropertyChanged(ShowErrorPropertyName);
@@ -724,7 +732,8 @@ namespace DiscoveryClassifier.UI.ViewModel
                         //Validate for unique entry when its edit
                         //Identify the category name using the category id
                         //when its changed it should not be available in the category list
-                        var categories= m_CategoryServiceClinet.GetCategories(string.Empty).List;
+                        //var categories= m_CategoryServiceClinet.GetCategories(string.Empty).List;
+                        var categories = m_CategoryServiceClient.GetCategories(String.Empty);
                         var categoryName = categories.Find(c => c.CategoryId.ToLower() == CategoryId.ToLower()).Title.ToLower();
                         if (categoryName != CategoryName.ToLower() && 
                             Categories.FindAll(c => c.Title.ToLower() == CategoryName.ToLower()).Count() > 0)
