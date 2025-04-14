@@ -522,7 +522,7 @@ namespace DiscoveryClassifier.UI.ViewModel
             MessageBox.Show(Resources.AddNewCategoryErrorMsg, "Categories");
             
             // CategoryCurrentStatus = CategoryStatus.Add;
-            Clear();
+            // Clear();
             return;
         }
 

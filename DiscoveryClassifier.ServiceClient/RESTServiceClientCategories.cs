@@ -26,11 +26,11 @@ namespace DiscoveryClassifier.ServiceClient
 
                 if (!String.IsNullOrEmpty(searchText))
                 {
-                    jsonResponse = GetHttpRequest(m_CategoriesURL + "/Search?searchText=" + searchText);
+                    jsonResponse = GetHttpRequest(m_CategoriesURL + "/Search?searchText=" + searchText + "&forceRefresh=true");
                 }
                 else
                 {
-                    jsonResponse = GetHttpRequest(m_CategoriesURL + "/GetCategories");
+                    jsonResponse = GetHttpRequest(m_CategoriesURL + "/GetCategories?forceRefresh=true");
                 }
 
 
