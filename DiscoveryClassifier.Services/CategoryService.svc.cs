@@ -9,9 +9,10 @@ using System.Text;
 using DiscoveryClassifier.BusinessObjects;
 using NationalArchives.CommonUtilities;
 
+
 namespace DiscoveryClassifier.Services
 {
-
+    [Obsolete]
     /// <summary>
     /// WCF service which wraps Category repository
     /// </summary>
