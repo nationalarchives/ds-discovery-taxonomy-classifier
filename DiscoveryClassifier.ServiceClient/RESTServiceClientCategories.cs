@@ -18,6 +18,12 @@ namespace DiscoveryClassifier.ServiceClient
         {
             m_CategoriesURL = ConfigurationManager.AppSettings.Get("RESTServiceAddressCategories");
         }
+
+        /// <summary>
+        /// Retrives a list of categories from the Taxonomy API
+        /// </summary>
+        /// <param name="searchText">if supplied, only categories whose title contains this text are returned.  Otherwise all categories are returned.</param>
+        /// <returns></returns>
         public List<Category> GetCategories(string searchText)
         {
             try
@@ -51,6 +57,11 @@ namespace DiscoveryClassifier.ServiceClient
             }
         }
 
+         /// <summary>
+         /// Rerieves a single category by ID from the taxonomy API
+         /// </summary>
+         /// <param name="categoryId">ID of the category to be returned e.g. C10101</param>
+         /// <returns>Details of the category</returns>
         public Category GetCategoryById(string categoryId)
         {
             string jsonResponse = null;
@@ -76,6 +87,12 @@ namespace DiscoveryClassifier.ServiceClient
             }
         }
 
+        /// <summary>
+        /// Saves a new or updated category definition to the Mongo database via the Taxonomy API
+        /// </summary>
+        /// <param name="category">Category definition</param>
+        /// <param name="isNew">True for a newly added category with a new ID and Title, otherwise false</param>
+        /// <exception cref="ArgumentException">Since adding new categories is not currently supported.</exception>
         public void SaveCategory(Category category, bool isNew)
         {
             if (isNew)
