@@ -19,8 +19,8 @@ namespace DiscoveryClassifier.UI.ViewModel
 {
     public class CategoriesViewModel : ViewModelBase, IDataErrorInfo
     {
-        private RESTServiceClientCategories m_CategoryServiceClient;
-        private RESTServiceClient m_DocumentServiceClient;
+        private IRestServiceClientCategories m_CategoryServiceClient;
+        private IRestServiceClient m_DocumentServiceClient;
         private Category m_Category;
         private Category m_SelectedCategory;
         private List<Category> m_Categories;
@@ -55,7 +55,7 @@ namespace DiscoveryClassifier.UI.ViewModel
         private const string ResultsPropertyName = "ResultsMessage";
         private const string StandardErrorMessage = "An unexpected error occured, please contact your administrator.";
 
-        public CategoriesViewModel(RESTServiceClientCategories categoryService, RESTServiceClient documentServiceClient)
+        public CategoriesViewModel(IRestServiceClientCategories categoryService, IRestServiceClient documentServiceClient)
         {
             m_CategoryServiceClient = categoryService;
             m_DocumentServiceClient = documentServiceClient;
@@ -520,9 +520,10 @@ namespace DiscoveryClassifier.UI.ViewModel
         public void AddExecute()
         {
             MessageBox.Show(Resources.AddNewCategoryErrorMsg, "Categories");
-            return;
-            CategoryCurrentStatus = CategoryStatus.Add;
+            
+            // CategoryCurrentStatus = CategoryStatus.Add;
             Clear();
+            return;
         }
 
         public ICommand SaveCommand { get; internal set;}

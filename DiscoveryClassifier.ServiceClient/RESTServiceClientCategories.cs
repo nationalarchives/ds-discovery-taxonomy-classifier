@@ -10,11 +10,11 @@ using System.ServiceModel;
 
 namespace DiscoveryClassifier.ServiceClient
 {
-    public class RESTServiceClientCategories : RESTServiceClientBase
+    public class RestServiceClientCategories : RESTServiceClientBase, IRestServiceClientCategories
     {
         private string m_CategoriesURL;
 
-        public RESTServiceClientCategories() : base()
+        public RestServiceClientCategories() : base()
         {
             m_CategoriesURL = ConfigurationManager.AppSettings.Get("RESTServiceAddressCategories");
         }
@@ -78,7 +78,7 @@ namespace DiscoveryClassifier.ServiceClient
 
         public void SaveCategory(Category category, bool isNew)
         {
-            if (isNew) 
+            if (isNew)
             {
                 throw new ArgumentException("Adding new categories is not currently supported.  Please contact your administrator.");
             }

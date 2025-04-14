@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace DiscoveryClassifier.UI.Services
 {
-    public class RESTServiceClient : RESTServiceClientBase
+    public class RESTServiceClient : RESTServiceClientBase, IRestServiceClient
     {
         private string m_ServiceURL;
 
