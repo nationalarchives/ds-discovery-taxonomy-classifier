@@ -55,9 +55,9 @@ namespace DiscoveryClassifier.UI.ViewModel
         private const string ResultsPropertyName = "ResultsMessage";
         private const string StandardErrorMessage = "An unexpected error occured, please contact your administrator.";
 
-        public CategoriesViewModel(IRestServiceClientCategories categoryService, IRestServiceClient documentServiceClient)
+        public CategoriesViewModel(IRestServiceClientCategories categoryServiceClient, IRestServiceClient documentServiceClient)
         {
-            m_CategoryServiceClient = categoryService;
+            m_CategoryServiceClient = categoryServiceClient;
             m_DocumentServiceClient = documentServiceClient;
 
             m_Category = new Category();
