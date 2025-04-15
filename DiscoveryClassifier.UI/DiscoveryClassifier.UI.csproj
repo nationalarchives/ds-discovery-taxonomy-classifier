@@ -21,7 +21,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>C:\Temp\DiscoveryClassifier\publish\elastic\</PublishUrl>
+    <PublishUrl>C:\Temp\DiscoveryClassifier\publish\opensearch\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -31,13 +31,13 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://DiscoveryClassifier.tna.local/elastic/</InstallUrl>
-    <ProductName>Discovery Classifier %28Elastic%29</ProductName>
+    <InstallUrl>http://DiscoveryClassifier.tna.local/opensearch/</InstallUrl>
+    <ProductName>Discovery Classifier %28OpenSearch%29</ProductName>
     <PublisherName>The National Archives</PublisherName>
     <SuiteName>Discovery</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -64,11 +64,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>1B2FB04D891548038597768CFF8D39D8251A42AD</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>60530104E8A1159586133A625F336521131D954E</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>
-    </ManifestKeyFile>
+    <ManifestKeyFile>DiscoveryClassifier.UI_4_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -210,6 +209,7 @@
     <None Include="ClassDiagram.cd" />
     <None Include="DiscoveryClassifier.UI_1_TemporaryKey.pfx" />
     <None Include="DiscoveryClassifier.UI_2_TemporaryKey.pfx" />
+    <None Include="DiscoveryClassifier.UI_4_TemporaryKey.pfx" />
     <None Include="DiscoveryClassifier.UI_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DiscoveryClassifier.Data.Models.Category.datasource" />
