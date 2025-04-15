@@ -100,7 +100,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="MockObjects\MockCategoryRepository.cs" />
+    <Compile Include="MockObjects\MockCategoryRestServiceClient.cs" />
     <Compile Include="MockObjects\MockCategoryService.cs" />
+    <Compile Include="MockObjects\MockRestSericeClient.cs" />
     <Compile Include="UnitTests\CategoryRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\CategoriesViewModelTest.cs" />

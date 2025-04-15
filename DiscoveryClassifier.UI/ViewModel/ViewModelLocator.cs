@@ -17,6 +17,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using DiscoveryClassifier.Services;
 using DiscoveryClassifier.UI.Services;
+using DiscoveryClassifier.ServiceClient;
 
 namespace DiscoveryClassifier.UI.ViewModel
 {
@@ -33,10 +34,16 @@ namespace DiscoveryClassifier.UI.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            SimpleIoc.Default.Register<ICategoryService, CategoryServiceClient>();
-
+            //SimpleIoc.Default.Register<ICategoryService, CategoryServiceClient>();
+            SimpleIoc.Default.Register<IRestServiceClientCategories, RestServiceClientCategories>();
+            SimpleIoc.Default.Register<IRestServiceClient, RESTServiceClient>();
+            
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<CategoriesViewModel>();
+
+            var restServiceClientCategories = ServiceLocator.Current.GetInstance<IRestServiceClientCategories>();
+            var restServiceClient = ServiceLocator.Current.GetInstance<IRestServiceClient>();
+            SimpleIoc.Default.Register<CategoriesViewModel>(() => new CategoriesViewModel(restServiceClientCategories, restServiceClient));
+
             SimpleIoc.Default.Register<DocumentViewModel>();
         }
 

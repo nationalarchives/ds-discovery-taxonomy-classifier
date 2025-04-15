@@ -9,6 +9,7 @@ using NationalArchives.CommonUtilities;
 
 namespace DiscoveryClassifier.Data
 {
+    [Obsolete]
     public class CategoryRepository : ICategoryRepository
     {
         private IMongoCollection<CategoryData> m_MongoCollection = null;

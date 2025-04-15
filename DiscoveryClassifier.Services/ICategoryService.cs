@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using DiscoveryClassifier.BusinessObjects;
 
@@ -8,6 +9,7 @@ namespace DiscoveryClassifier.Services
     /// This interface sets contracts for WCF service
     /// to work with Categories through repository
     /// </summary>
+    [Obsolete]
     [ServiceContract]
     public interface ICategoryService
     {
